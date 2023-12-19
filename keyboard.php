@@ -40,10 +40,9 @@ $result = mysqli_query($connect, "SELECT id_admin FROM admin");
 $admin_ids = array_column(mysqli_fetch_all($result, MYSQLI_ASSOC), 'id_admin');
 $keyboard = [
     'keyboard' => [
-        [['text' => $datatextbot['text_sell']],['text' => $datatextbot['text_usertest']]],
+        [['text' => $datatextbot['text_sell']]],
         [['text' => $datatextbot['text_Purchased_services']],['text' => $datatextbot['text_Tariff_list']]],
         [['text' => $datatextbot['text_account']],['text' => $datatextbot['text_Add_Balance']]],
-        [['text' => "👥 زیر مجموعه گیری"]],
         [['text' => $datatextbot['text_support']], ['text' => $datatextbot['text_help']]],
     ],
     'resize_keyboard' => true
