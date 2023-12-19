@@ -1,0 +1,51 @@
+[25-Jun-2023 15:31:00 UTC] PHP Fatal error:  Uncaught Error: Class "mysqli" not found in /home1/marzbote/public_html/bot/install/data.php:46
+Stack trace:
+#0 {main}
+  thrown in /home1/marzbote/public_html/bot/install/data.php on line 46
+[01-Jul-2023 16:30:25 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.4.2): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[02-Jul-2023 22:42:01 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.4.5.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[03-Jul-2023 16:40:29 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.4.6): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[04-Jul-2023 09:07:31 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.4.6.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[05-Jul-2023 11:54:36 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.4.7): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[11-Jul-2023 00:15:00 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.5): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[21-Jul-2023 11:21:41 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.6.3.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[25-Jul-2023 18:27:08 UTC] PHP Warning:  rmdir(../bottelegrammarzban-3.7.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[31-Jul-2023 23:18:08 UTC] PHP Warning:  rmdir(../bottelegrammarzban-4.1.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[18-Aug-2023 00:13:00 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 00:13:00 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 00:24:24 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 00:24:24 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 00:37:09 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 00:37:09 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 10:18:07 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 10:18:07 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 10:27:12 UTC] PHP Warning:  rmdir(../botmirzapanel-4.3.1): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[18-Aug-2023 10:27:26 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 10:27:26 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 10:30:58 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 10:30:58 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 13:04:18 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 20
+[18-Aug-2023 13:04:18 UTC] PHP Warning:  Undefined array key "tag_name" in /home1/marzbote/public_html/bot/install/update.php on line 22
+[18-Aug-2023 13:11:17 UTC] PHP Warning:  rmdir(../botmirzapanel-4.3.2): Directory not empty in /home1/marzbote/public_html/bot/install/update.php on line 64
+[18-Aug-2023 18:38:39 UTC] PHP Warning:  rmdir(../botmirzapanel-4.3.3): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[19-Aug-2023 16:28:44 UTC] PHP Warning:  rmdir(../botmirzapanel-4.3.5): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[23-Aug-2023 01:50:08 UTC] PHP Warning:  rmdir(../botmirzapanel-4.3.6): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[09-Sep-2023 16:32:00 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.1): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:13 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3/vendor/phpqrcode/cache): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:13 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3/vendor/phpqrcode): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:13 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3/vendor): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:13 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:15 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[12-Sep-2023 15:57:15 UTC] PHP Warning:  unlink(../file.zip): No such file or directory in /home1/marzbote/public_html/bot/myinstall/update.php on line 68
+[13-Sep-2023 00:27:52 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.3): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[19-Sep-2023 00:48:38 UTC] PHP Warning:  rmdir(../botmirzapanel-4.4.4): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[24-Sep-2023 22:16:29 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:11 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5.1/vendor/phpqrcode/cache): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:11 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5.1/vendor/phpqrcode): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:11 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5.1/vendor): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:11 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5.1): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:12 UTC] PHP Warning:  rmdir(../botmirzapanel-4.5.1): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[16-Oct-2023 20:39:12 UTC] PHP Warning:  unlink(../file.zip): No such file or directory in /home1/marzbote/public_html/bot/myinstall/update.php on line 68
+[28-Oct-2023 21:00:02 UTC] PHP Warning:  rmdir(../botmirzapanel-4.6.2): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[06-Dec-2023 13:54:20 UTC] PHP Warning:  rmdir(../botmirzapanel-4.7.3): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
+[18-Dec-2023 21:53:39 UTC] PHP Warning:  rmdir(../botmirzapanel-4.7.4): Directory not empty in /home1/marzbote/public_html/bot/myinstall/update.php on line 64
