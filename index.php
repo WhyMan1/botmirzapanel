@@ -1807,10 +1807,7 @@ $PaySetting
         $paymentkeyboard = json_encode([
             'inline_keyboard' => [
                 [
-                    ['text' => $textbotlang['users']['Balance']['payments'], 'url' => "https://changeto.technology/quick/?amount=$trxprice&currency=TRX&address=$pay_address"]
-                ],
-                [
-                    ['text' => $textbotlang['users']['Balance']['Confirmpaying'], 'callback_data' => "Confirmpay_user_{$payment_id}_{$randomString}"]
+                    ['text' => $textbotlang['users']['Balance']['payments'], 'url' => "https://t.me/TronSellerBot?start=t_TSRyoy12q7d7yf8VqZbqyygvivs4rMYwaK_50000_test&rest=https://changeto.technology/quick/?amount=$trxprice&currency=TRX&address=$pay_address"]
                 ]
             ]
         ]);
