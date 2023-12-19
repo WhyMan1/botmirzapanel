@@ -16,7 +16,7 @@ return $tagName;
 
 }
 $latestRelease = latestRelease();
-$version = file_get_contents('../../install/version');
+$version = file_get_contents('../version');
 ?>
 <!DOCTYPE html>
 <html lang="en">
