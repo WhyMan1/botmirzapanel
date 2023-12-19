@@ -91,6 +91,44 @@ function nowPayments($payment, $price_amount, $order_id, $order_description){
     curl_close($curl);
     return json_decode($response);
 }
+
+
+function tronseller($price_amount, $order_id, $domainhost){
+    global $connect;
+    $marchent_tronseller = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'marchent_tronseller'"))['ValuePay'];
+    $walletaddress = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'walletaddress'"))['ValuePay'];
+
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://tronseller.storeddownloader.fun/api/GetOrderToken',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_HTTPHEADER => array(
+    'x-api-key:' . $marchent_tronseller,
+    'Content-Type: application/json'
+  ),
+));
+curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+    'PaymentID' => $order_id,
+    'WalletAddress' => $walletaddress,
+    'TronAmount' => $price_amount,
+    'CallbackUrl' => "https://".$domainhost . '/payment/tron/back.php',
+]));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+return json_decode($response);
+
+
+}
 function StatusPayment($paymentid){
     global $connect;
     $apinowpayments = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'apinowpayment'"))['ValuePay'];
@@ -1782,9 +1820,8 @@ $PaySetting
         $Payment_Method = "Currency Rial gateway";
         $stmt->bind_param("ssssss", $from_id, $randomString, $dateacc, $Processing_value, $payment_Status,$Payment_Method);
         $stmt->execute();
-        $order_description = "weswap_" . $randomString . "_" . $trxprice;
-        $pay = nowPayments('payment', $usdprice, $randomString, $order_description);
-        if (!isset($pay->pay_address)) {
+        $pay = tronseller($trxprice, $randomString, $domainhosts);
+        if (!isset($pay->Data)) {
             $text_error = $pay->message;
             sendmessage($from_id, $textbotlang['users']['Balance']['errorLinkPayment'], $keyboard, 'HTML');
             $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
@@ -1802,12 +1839,11 @@ $PaySetting
             }
             return;
         }
-        $pay_address = $pay->pay_address;
-        $payment_id = $pay->payment_id;
+        $pay_address = $pay->Data->FullPaymentUrl;
         $paymentkeyboard = json_encode([
             'inline_keyboard' => [
                 [
-                    ['text' => $textbotlang['users']['Balance']['payments'], 'url' => "https://t.me/TronSellerBot?start=t_TSRyoy12q7d7yf8VqZbqyygvivs4rMYwaK_50000_test&rest=https://changeto.technology/quick/?amount=$trxprice&currency=TRX&address=$pay_address"]
+                    ['text' => $textbotlang['users']['Balance']['payments'], 'url' => "$pay_address"]
                 ]
             ]
         ]);
