@@ -1597,10 +1597,9 @@ elseif ($user['step'] == "getcodesellDiscount") {
     $stmt = mysqli_prepare($connect, "SELECT * FROM DiscountSell WHERE codeDiscount =  ?");
     mysqli_stmt_bind_param($stmt, "s", $text);
     mysqli_stmt_execute($stmt);
-    $SellDiscountlimitMysqliResult = mysqli_stmt_get_result($stmt);
-    $SellDiscountlimit = mysqli_fetch_assoc($SellDiscountlimitMysqliResult);
+    $SellDiscountlimit = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
     mysqli_stmt_close($stmt);
-    if (mysqli_num_rows($SellDiscountlimitMysqliResult) == 0) {
+    if ($SellDiscountlimit === null) {
         sendmessage($from_id, $textbotlang['Admin']['Discount']['invalidcodedis'], null, 'HTML');
         return;
     }
