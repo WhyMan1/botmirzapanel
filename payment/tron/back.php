@@ -49,6 +49,9 @@ $text_report = "💵 پرداخت جدید
         '2' => "تراکنش قبلا وریفای و پرداخت شده است",
 
     ][$result->code]; */
+    if (strlen($setting['Channel_Report']) > 0) {
+        sendmessage($setting['Channel_Report'], $data, null, 'HTML');
+    }
      $dec_payment_status = "";
 }
 ?>
