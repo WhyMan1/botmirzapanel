@@ -8,17 +8,18 @@ $botapi = $Pathfiles.'/botapi.php';
 require_once $Pathfile;
 require_once $jdf;
 require_once $botapi;
-$PaymentID = htmlspecialchars($_POST['PaymentID'], ENT_QUOTES, 'UTF-8');
-$IsPaid = htmlspecialchars($_POST['IsPaid'], ENT_QUOTES, 'UTF-8');
+$data = json_decode(file_get_contents('php://input'), true);
+$PaymentID = htmlspecialchars($data['PaymentID'], ENT_QUOTES, 'UTF-8');
+$IsPaid = htmlspecialchars($data['IsPaid'], ENT_QUOTES, 'UTF-8');
 $PaySetting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'merchant_id_aqayepardakht'"))['ValuePay'];
 $Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"))['price'];
 
 
-if ($IsPaid == "true") {
+if ($IsPaid) {
     $payment_status = "پرداخت موفق";
     $price = $Payment_report;
     $dec_payment_status = "از انجام تراکنش متشکریم!";
-    $Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$invoice_id' LIMIT 1"));
+    $Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"));
     if($Payment_report['payment_Status'] != "paid"){
     $Balance_id = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE id = '{$Payment_report['id_user']}' LIMIT 1"));
     $stmt = $connect->prepare("UPDATE user SET Balance = ? WHERE id = ?");
@@ -35,7 +36,7 @@ if ($IsPaid == "true") {
     $setting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM setting"));
 $text_report = "💵 پرداخت جدید
         
-آیدی عددی کاربر : $from_id
+آیدی عددی کاربر : $Balance_id
 مبلغ تراکنش $price
 روش پرداخت :  درگاه ترون";
     if (strlen($setting['Channel_Report']) > 0) {
@@ -43,11 +44,11 @@ $text_report = "💵 پرداخت جدید
     }
 }
 }else {
-        $payment_status = [
+        /* $payment_status = [
         '0' => "پرداخت انجام نشد",
         '2' => "تراکنش قبلا وریفای و پرداخت شده است",
 
-    ][$result->code];
+    ][$result->code]; */
      $dec_payment_status = "";
 }
 ?>
@@ -104,7 +105,7 @@ $text_report = "💵 پرداخت جدید
 <body>
     <div class="confirmation-box">
         <h1><?php echo $payment_status ?></h1>
-        <p>شماره تراکنش:<span><?php echo $invoice_id ?></span></p>
+        <p>شماره تراکنش:<span><?php echo $PaymentID ?></span></p>
         <p>مبلغ پرداختی:  <span><?php echo  $Payment_report; ?></span>تومان</p>
         <p>تاریخ: <span>  <?php echo jdate('Y/m/d')  ?>  </span></p>
         <p><?php echo $dec_payment_status ?></p>
