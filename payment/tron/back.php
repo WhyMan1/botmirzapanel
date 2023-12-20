@@ -8,9 +8,9 @@ $botapi = $Pathfiles.'/botapi.php';
 require_once $Pathfile;
 require_once $jdf;
 require_once $botapi;
-$invoice_id = htmlspecialchars($_POST['invoice_id'], ENT_QUOTES, 'UTF-8');
+$PaymentID = htmlspecialchars($_POST['PaymentID'], ENT_QUOTES, 'UTF-8');
 $PaySetting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'merchant_id_aqayepardakht'"))['ValuePay'];
-$Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$invoice_id' LIMIT 1"))['price'];
+$Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"))['price'];
 
 // verify Transaction
 

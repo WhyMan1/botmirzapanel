@@ -97,12 +97,13 @@ function tronseller($price_amount, $order_id, $domainhost){
     global $connect;
     $marchent_tronseller = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'marchent_tronseller'"))['ValuePay'];
     $walletaddress = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'walletaddress'"))['ValuePay'];
+    $urlpaymenttron = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'urlpaymenttron'"))['ValuePay'];
 
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://tronseller.storeddownloader.fun/api/GetOrderToken',
+  CURLOPT_URL => $urlpaymenttron,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -119,7 +120,7 @@ curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
     'PaymentID' => $order_id,
     'WalletAddress' => $walletaddress,
     'TronAmount' => $price_amount,
-    'CallbackUrl' => "https://".$domainhost . '/payment/tron/back.php',
+    'CallbackUrl' => "https://".$domainhost . '/bot/payment/tron/back.php',
 ]));
 
 $response = curl_exec($curl);
