@@ -1429,6 +1429,9 @@ elseif ($user['step'] == "payment" && $datain == "confirmandgetservice" || $data
     $stmt->close();
     $date = strtotime("+" . $info_product['Service_time'] . "days");
     $timestamp = strtotime(date("Y-m-d H:i:s", $date));
+    if ($info_product['Service_time'] == 0) {   
+        $timestamp = null;
+    }
     $data_limit = $info_product['Volume_constraint'] * pow(1024, 3);
     $nameprotocol = array();
 if(isset($marzban_list_get['vless']) && $marzban_list_get['vless'] == "onvless"){
