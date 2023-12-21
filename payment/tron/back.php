@@ -1,25 +1,18 @@
 <?php
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
-$Pathfile = dirname(dirname($_SERVER['PHP_SELF'], 2));
-$Pathfiles = $rootPath.$Pathfile;
-$Pathfile = $Pathfiles.'/config.php';
-$jdf = $Pathfiles.'/jdf.php';
-$botapi = $Pathfiles.'/botapi.php';
-require_once $Pathfile;
-require_once $jdf;
-require_once $botapi;
+require_once $rootPath . '/config.php';
+require_once $rootPath . '/jdf.php';
+require_once $rootPath . '/botapi.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-$PaymentID = htmlspecialchars($data['PaymentID'], ENT_QUOTES, 'UTF-8');
-$IsPaid = htmlspecialchars($data['IsPaid'], ENT_QUOTES, 'UTF-8');
 
 $PaySetting = getPaymentSetting($connect, 'marchent_tronseller');
-$Payment_report = getPaymentReport($connect, $PaymentID);
+$Payment_report = getPaymentReport($connect, $data['PaymentID']);
 
-if ($IsPaid) {
+if ($data['IsPaid']) {
     processPaidPayment($connect, $Payment_report, $PaySetting);
 } else {
-    processUnpaidPayment($connect, $data, $setting);
+    processUnpaidPayment($connect, $data, $PaySetting);
 }
 
 function getPaymentSetting($connect, $namePay) {
@@ -31,15 +24,11 @@ function getPaymentReport($connect, $PaymentID) {
 }
 
 function processPaidPayment($connect, $Payment_report, $PaySetting) {
-    $payment_status = "پرداخت موفق";
-    $price = $Payment_report['price'];
-    $dec_payment_status = "از انجام تراکنش متشکریم!";
-
     if($Payment_report['payment_Status'] != "paid"){
         $Balance_id = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE id = '{$Payment_report['id_user']}' LIMIT 1"));
-        updateUserBalance($connect, $Balance_id, $price);
+        updateUserBalance($connect, $Balance_id, $Payment_report['price']);
         updatePaymentStatus($connect, $Payment_report, 'paid');
-        sendPaymentConfirmationMessage($connect, $Payment_report, $price, $Balance_id);
+        sendPaymentConfirmationMessage($connect, $Payment_report, $Payment_report['price'], $Balance_id);
     }
 }
 
@@ -131,11 +120,11 @@ function processUnpaidPayment($connect, $data, $setting) {
 </head>
 <body>
     <div class="confirmation-box">
-        <h1><?php echo $payment_status ?></h1>
+        <h1><?php echo $data['IsPaid'] ?></h1>
         <p>شماره تراکنش:<span><?php echo $PaymentID ?></span></p>
         <p>مبلغ پرداختی:  <span><?php echo  $Payment_report['price']; ?></span>تومان</p>
         <p>تاریخ: <span>  <?php echo jdate('Y/m/d')  ?>  </span></p>
-        <p><?php echo $dec_payment_status ?></p>
+        <p><?php echo $data ?></p>
         <a class = "btn" href = "https://t.me/<?php echo $usernamebot ?>">بازگشت به ربات</a>
     </div>
 </body>
