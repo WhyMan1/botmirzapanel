@@ -8,51 +8,75 @@ $botapi = $Pathfiles.'/botapi.php';
 require_once $Pathfile;
 require_once $jdf;
 require_once $botapi;
+
 $data = json_decode(file_get_contents('php://input'), true);
 $PaymentID = htmlspecialchars($data['PaymentID'], ENT_QUOTES, 'UTF-8');
 $IsPaid = htmlspecialchars($data['IsPaid'], ENT_QUOTES, 'UTF-8');
-$PaySetting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = 'merchant_id_aqayepardakht'"))['ValuePay'];
-$Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"))['price'];
 
+$PaySetting = getPaymentSetting($connect, 'marchent_tronseller');
+$Payment_report = getPaymentReport($connect, $PaymentID);
 
 if ($IsPaid) {
+    processPaidPayment($connect, $Payment_report, $PaySetting);
+} else {
+    processUnpaidPayment($connect, $data, $setting);
+}
+
+function getPaymentSetting($connect, $namePay) {
+    return mysqli_fetch_assoc(mysqli_query($connect, "SELECT (ValuePay) FROM PaySetting WHERE NamePay = '$namePay'"))['ValuePay'];
+}
+
+function getPaymentReport($connect, $PaymentID) {
+    return mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"));
+}
+
+function processPaidPayment($connect, $Payment_report, $PaySetting) {
     $payment_status = "پرداخت موفق";
-    $price = $Payment_report;
+    $price = $Payment_report['price'];
     $dec_payment_status = "از انجام تراکنش متشکریم!";
-    $Payment_report = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM Payment_report WHERE id_order = '$PaymentID' LIMIT 1"));
+
     if($Payment_report['payment_Status'] != "paid"){
-    $Balance_id = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE id = '{$Payment_report['id_user']}' LIMIT 1"));
+        $Balance_id = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE id = '{$Payment_report['id_user']}' LIMIT 1"));
+        updateUserBalance($connect, $Balance_id, $price);
+        updatePaymentStatus($connect, $Payment_report, 'paid');
+        sendPaymentConfirmationMessage($connect, $Payment_report, $price, $Balance_id);
+    }
+}
+
+function updateUserBalance($connect, $Balance_id, $price) {
     $stmt = $connect->prepare("UPDATE user SET Balance = ? WHERE id = ?");
     $Balance_confrim = intval($Balance_id['Balance']) + $price;
-    $stmt->bind_param("ss", $Balance_confrim, $Payment_report['id_user']);
+    $stmt->bind_param("ss", $Balance_confrim, $Balance_id['id']);
     $stmt->execute();
+}
+
+function updatePaymentStatus($connect, $Payment_report, $status) {
     $stmt = $connect->prepare("UPDATE Payment_report SET payment_Status = ? WHERE id_order = ?");
-    $Status_change = "paid";
-    $stmt->bind_param("ss", $Status_change, $Payment_report['id_order']);
+    $stmt->bind_param("ss", $status, $Payment_report['id_order']);
     $stmt->execute();
-    sendmessage($Payment_report['id_user'],"💎 کاربر گرامی مبلغ $price تومان به کیف پول شما واریز گردید با تشکر از پرداخت شما.
-    
-    🛒 کد پیگیری شما: {$Payment_report['id_order']}",null,'HTML');
+}
+
+function sendPaymentConfirmationMessage($connect, $Payment_report, $price, $Balance_id) {
     $setting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM setting"));
-$text_report = "💵 پرداخت جدید
+    $text_report = "💵 پرداخت جدید
         
 آیدی عددی کاربر : $Balance_id
 مبلغ تراکنش $price
 روش پرداخت :  درگاه ترون";
+
+    sendmessage($Payment_report['id_user'], "💎 کاربر گرامی مبلغ $price تومان به کیف پول شما واریز گردید با تشکر از پرداخت شما.
+    
+    🛒 کد پیگیری شما: {$Payment_report['id_order']}", null, 'HTML');
+
     if (strlen($setting['Channel_Report']) > 0) {
         sendmessage($setting['Channel_Report'], $text_report, null, 'HTML');
     }
 }
-}else {
-        /* $payment_status = [
-        '0' => "پرداخت انجام نشد",
-        '2' => "تراکنش قبلا وریفای و پرداخت شده است",
 
-    ][$result->code]; */
+function processUnpaidPayment($connect, $data, $setting) {
     if (strlen($setting['Channel_Report']) > 0) {
         sendmessage($setting['Channel_Report'], $data, null, 'HTML');
     }
-     $dec_payment_status = "";
 }
 ?>
 <html>
@@ -109,7 +133,7 @@ $text_report = "💵 پرداخت جدید
     <div class="confirmation-box">
         <h1><?php echo $payment_status ?></h1>
         <p>شماره تراکنش:<span><?php echo $PaymentID ?></span></p>
-        <p>مبلغ پرداختی:  <span><?php echo  $Payment_report; ?></span>تومان</p>
+        <p>مبلغ پرداختی:  <span><?php echo  $Payment_report['price']; ?></span>تومان</p>
         <p>تاریخ: <span>  <?php echo jdate('Y/m/d')  ?>  </span></p>
         <p><?php echo $dec_payment_status ?></p>
         <a class = "btn" href = "https://t.me/<?php echo $usernamebot ?>">بازگشت به ربات</a>
