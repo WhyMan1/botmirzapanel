@@ -33,7 +33,7 @@ function processPaidPayment($connect, $Payment_report, $PaySetting) {
         $Balance_id = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE id = '{$Payment_report['id_user']}' LIMIT 1"));
         updateUserBalance($connect, $Balance_id, $Payment_report['price']);
         updatePaymentStatus($connect, $Payment_report, 'paid');
-        sendPaymentConfirmationMessage($connect, $Payment_report, $Payment_report['price'], $Balance_id);
+        sendPaymentConfirmationMessage($connect, $Payment_report, $Payment_report['price'], $Payment_report['id_user']);
     }
 }
 
@@ -50,11 +50,11 @@ function updatePaymentStatus($connect, $Payment_report, $status) {
     $stmt->execute();
 }
 
-function sendPaymentConfirmationMessage($connect, $Payment_report, $price, $Balance_id) {
+function sendPaymentConfirmationMessage($connect, $Payment_report, $price, $id_user) {
     $setting = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM setting"));
     $text_report = "💵 پرداخت جدید
         
-آیدی عددی کاربر : $Balance_id
+آیدی عددی کاربر : $id_user
 مبلغ تراکنش $price
 روش پرداخت :  درگاه ترون";
 
@@ -129,7 +129,7 @@ function processUnpaidPayment($connect, $data, $setting) {
         <p>شماره تراکنش:<span><?php echo $PaymentID ?></span></p>
         <p>مبلغ پرداختی:  <span><?php echo  $Payment_report['price']; ?></span>تومان</p>
         <p>تاریخ: <span>  <?php echo jdate('Y/m/d')  ?>  </span></p>
-        <p><?php echo $data ?></p>
+        <p><?php echo json_encode($data, JSON_PRETTY_PRINT); ?></p>
         <a class = "btn" href = "https://t.me/<?php echo $usernamebot ?>">بازگشت به ربات</a>
     </div>
 </body>
