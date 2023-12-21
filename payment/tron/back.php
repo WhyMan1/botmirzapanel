@@ -1,8 +1,13 @@
 <?php
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
-require_once $rootPath . '/config.php';
-require_once $rootPath . '/jdf.php';
-require_once $rootPath . '/botapi.php';
+$Pathfile = dirname(dirname($_SERVER['PHP_SELF'], 2));
+$Pathfiles = $rootPath.$Pathfile;
+$Pathfile = $Pathfiles.'/config.php';
+$jdf = $Pathfiles.'/jdf.php';
+$botapi = $Pathfiles.'/botapi.php';
+require_once $Pathfile;
+require_once $jdf;
+require_once $botapi;
 
 $data = json_decode(file_get_contents('php://input'), true);
 
