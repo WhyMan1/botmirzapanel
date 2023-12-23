@@ -102,7 +102,7 @@ $version = file_get_contents('../version');
             </section>
         </div>
         <?php
-        if($latestRelease > $version){
+        if(version_compare($latestRelease, $version) > 0){
             ?>
         <a class="btn" href="../update.php">آپدیت ربات</a>
         <?Php

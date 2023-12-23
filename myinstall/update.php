@@ -19,7 +19,7 @@ $latestRelease = latestRelease();
 //-----------------------download file------------------------------//
 $githubUrl = "https://github.com/WhyMan1/botmirzapanel/archive/".$latestRelease['tag_name'].".zip";
 $filezip = '../file.zip';
-if($version < $latestRelease['tag_name']){
+if(version_compare($latestRelease['tag_name'], $version) > 0){
 $fileContent = file_get_contents($githubUrl);
 if ($fileContent !== false) {
     file_put_contents($filezip, $fileContent);

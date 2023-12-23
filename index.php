@@ -745,11 +745,11 @@ elseif (preg_match('/confirmserivce_(\w+)/', $datain, $dataget) && $user['step']
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
     answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
-    $stmt->execute();
+    $stmt->execute(); */
         return;
         }
     $Balance_Low_user = $user['Balance'] - $prodcut['price_product'];
@@ -916,11 +916,11 @@ elseif (preg_match('/confirmaextra_(\w+)/', $datain, $dataget)) {
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
     answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
-    $stmt->execute();
+    $stmt->execute(); */
         return;
         }
     deletemessage($from_id, $message_id);
@@ -1407,11 +1407,11 @@ elseif ($user['step'] == "payment" && $datain == "confirmandgetservice" || $data
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
     answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
-    $stmt->execute();
+    $stmt->execute(); */
         return;
     }
     $username_ac = $user['Processing_value_tow'];
