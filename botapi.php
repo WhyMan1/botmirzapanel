@@ -65,11 +65,11 @@ function deletemessage($chat_id, $message_id)
         'message_id' => $message_id,
     ]);
 }
-function answerCallbackQuery($callback_query_id)
+function answerCallbackQuery($callback_query_id, $text)
 {
     telegram('answerCallbackQuery', [
         'callback_query_id' => $callback_query_id,
-        'text' => 'alert msg',
+        'text' => $text,
         'show_alert' => 'True',
     ]);
 }
