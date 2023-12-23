@@ -740,12 +740,13 @@ elseif (preg_match('/confirmserivce_(\w+)/', $datain, $dataget) && $user['step']
     $nameloc = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM invoice WHERE username = '$usernamepanel'"));
     $prodcut = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM product WHERE name_product = '{$nameloc['name_product']}'"));
         if($user['Balance'] < $prodcut['price_product']){
+    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
+/* 
     $Balance_prim = $prodcut['price_product'] - $user['Balance'];
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+        sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
@@ -911,12 +912,13 @@ elseif (preg_match('/confirmaextra_(\w+)/', $datain, $dataget)) {
     $volume = $dataget[1];
     $nameloc = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM invoice WHERE username = '$Processing_value'"));
         if($user['Balance'] <$volume){
+    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
+/*  
     $Balance_prim = $volume - $user['Balance'];
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+    sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
@@ -1402,12 +1404,12 @@ elseif ($user['step'] == "payment" && $datain == "confirmandgetservice" || $data
         $priceproduct =  $info_product['price_product'];
     }
     if ($priceproduct > $user['Balance']) {
-    $Balance_prim = $priceproduct - $user['Balance'];
+    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
+/*     $Balance_prim = $priceproduct - $user['Balance'];
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    answerCallbackQuery($callback_query_id, $textbotlang['users']['sell']['None-credit-Alert']);
-/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+    sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
