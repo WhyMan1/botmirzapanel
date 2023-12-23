@@ -744,7 +744,8 @@ elseif (preg_match('/confirmserivce_(\w+)/', $datain, $dataget) && $user['step']
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+    answerCallbackQuery($callback_query_id)
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
@@ -914,7 +915,8 @@ elseif (preg_match('/confirmaextra_(\w+)/', $datain, $dataget)) {
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+    answerCallbackQuery($callback_query_id)
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);
@@ -1404,7 +1406,8 @@ elseif ($user['step'] == "payment" && $datain == "confirmandgetservice" || $data
     $stmt = $connect->prepare("UPDATE user SET Processing_value = ? WHERE id = ?");
     $stmt->bind_param("ss", $Balance_prim, $from_id);
     $stmt->execute();
-    sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML');
+    answerCallbackQuery($callback_query_id)
+/*     sendmessage($from_id, $textbotlang['users']['sell']['None-credit'], $step_payment, 'HTML'); */
     $stmt = $connect->prepare("UPDATE user SET step = ? WHERE id = ?");
     $step = 'get_step_payment';
     $stmt->bind_param("ss", $step, $from_id);

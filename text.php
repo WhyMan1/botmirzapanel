@@ -100,6 +100,7 @@ $textbotlang['users']['support']['btnsupport'] = "☎️  در دکمه زیر (
 
 
 $textbotlang['users']['Balance']['priceinput'] = "💸 مبلغ را  به تومان وارد کنید:
+✅ حداقل مبلغ شارژ کیف پول ۴ دلار یا حدود ۲۱۰ هزار تومان است
 ✅ حداکثر مبلغ 10.000.000میلیون تومان می باشد";
 $textbotlang['users']['Balance']['errorprice'] = "❌ خطا 
 💬 لطفا فقط عدد وارد کنید
